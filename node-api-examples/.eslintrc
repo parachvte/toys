@@ -1,0 +1,11 @@
+{
+    "env": {
+        "node": true,
+        "browser": false,
+        "amd": false,
+        "mocha": false
+    },
+    "rules": {
+        "quotes": [1, "double"]
+    }
+}
