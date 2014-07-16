@@ -6,6 +6,7 @@
         "mocha": false
     },
     "rules": {
-        "quotes": [1, "double"]
+        "quotes": [1, "double"],
+        "semi": [1, "never"]
     }
 }
