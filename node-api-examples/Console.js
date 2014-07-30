@@ -7,7 +7,7 @@ console.log("logging %d %d", 2, 3)
 console.info("info %d %d", 2, 3)
 
 // console.error([data], [...])
-console.error("error %d %d", 2, 3)
+console.error("error %d %d", 2, 3)  // the same as log & info, but print to stderr
 
 // console.warn([data], [...])
 console.warn("warn %d %d", 2, 3)
