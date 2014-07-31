@@ -26,3 +26,5 @@ module.exports = new EventEmitter()
 
 // Modules all together
 // http://nodejs.org/api/modules.html#modules_all_together
+
+console.log(require.main)
