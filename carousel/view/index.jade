@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        title Carousel Dev
+        //link(href='/css/carousel.css', rel='stylesheet')
+        link(href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', rel='stylesheet')
+        script(src='https://code.jquery.com/jquery-2.1.1.min.js', type='text/javascript')
+        script(src='/js/carousel.js', type='text/javascript')
+
+    body
+        #carousel-example.carousel.slide(data-ride="carousel", class="col-sm-4")
+            ol.carousel-indicators
+                li(data-target="#carousel-example" data-slide-to="0" class="active")
+                li(data-target="#carousel-example" data-slide-to="1" class="")
+                li(data-target="#carousel-example" data-slide-to="2" class="")
+            .carousel-inner
+                .item.active
+                    img(src='/img/a.jpg', style="max-width: 100%")
+                .item
+                    img(src='/img/b.jpg')
+                .item
+                    img(src='/img/b.jpg')
