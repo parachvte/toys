@@ -5,6 +5,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <unistd.h>
 #include <netdb.h>
 
 #include "sock_util.h"
@@ -22,25 +23,32 @@ int make_passive_socket_tcp(int port, int backlog)
     }
 
     // Set serv_addr
-    init_sockaddr(&serv_addr, "", port);
+    if (init_sockaddr(&serv_addr, "", port) == -1) {
+        perror("init sockaddr error");
+        close(sockfd);
+        exit(1);
+    }
 
     // Once the service is down, we should wait for the port to clear,
     // or just call setsockopt() to reuse the port
     int yes = 1;
     if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) == -1) {
         perror("call setsocketopt() error");
+        close(sockfd);
         exit(1);
     }
 
     // Bind sockfd with serv_addr
     if (bind(sockfd, (struct sockaddr *)&serv_addr, sizeof (struct sockaddr)) == -1) {
         perror("call bind() error");
+        close(sockfd);
         exit(1);
     }
 
     // Listen
     if (listen(sockfd, backlog) < 0) {
         perror("call listen() error");
+        close(sockfd);
         exit(1);
     }
 
@@ -64,10 +72,15 @@ int make_active_socket_tcp(const char *hostname, int port) {
     }
  
     // Set serv_addr
-    init_sockaddr(&serv_addr, hostname, port);
+    if (init_sockaddr(&serv_addr, hostname, port) == -1) {
+        perror("init sockaddr error");
+        close(sockfd);
+        exit(1);
+    }
 
     if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(struct sockaddr)) == -1) {
         perror("call connect() error");
+        close(sockfd);
         exit(1);
     }
 
@@ -95,9 +108,10 @@ int init_sockaddr(struct sockaddr_in *addr, const char *hostname, uint16_t port)
 
         if (hostinfo == NULL) {
             perror("Unknown host");
-            exit(1);
+            return -1;
         }
         addr->sin_addr = *(struct in_addr *) hostinfo->h_addr;
     }
     memset(&(addr->sin_zero), 0, 8);
+    return 0;
 }

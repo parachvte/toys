@@ -82,7 +82,6 @@ int read_from_client(int sockfd) {
     }
 
     return !strcmp(res, "success");
-
 }
 
 int main() {
