@@ -41,7 +41,8 @@ void chat_server() {
 
         // Connections on original socket
         if (FD_ISSET(sockfd, &read_fds)) {
-            int new_socket, size;
+            int new_socket;
+            socklen_t size;
 
             size = sizeof (client_addr);
             new_socket = accept(sockfd, (struct sockaddr *)&client_addr, &size);
