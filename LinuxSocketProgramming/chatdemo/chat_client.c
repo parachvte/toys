@@ -7,6 +7,7 @@
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <netdb.h>
 
 #include "sock_util.h"
 
@@ -14,7 +15,7 @@
 #define SERV_PORT       2333
 #define MAX_MSG_SIZE    500
 
-int send_msg(char *msg) {
+int send_msg(char *serv_host, int serv_port, char *msg) {
     int sockfd;
     int numbytes;
     char res[MAX_MSG_SIZE];
@@ -41,19 +42,48 @@ int send_msg(char *msg) {
 }
 
 int main(int argc, char **argv) {
-    if (argc != 2) {
-        printf("arguments wrong");
-        exit(1);
-    }
-
+    int command;
+    char serv_host[30];
     char msg[MAX_MSG_SIZE];
     int res;
-    strcpy(msg, argv[1]);
 
-    if ((res = send_msg(msg)) == 1) {
-        printf("send_msg() success\n");
-    } else {
-        printf("send_msg() failed\n");
+    while (1) {
+        printf("\n");
+        printf("Type command:\n");
+        printf(" 1) Set target host\n");
+        printf(" 2) Send message\n");
+
+        scanf("%d", &command);
+        switch (command) {
+            case 1:
+                scanf("%s", serv_host);
+
+                struct hostent *hostinfo;
+                hostinfo = gethostbyname(serv_host);
+
+                if (hostinfo == NULL) {
+                    perror("Unknown host");
+                    return -1;
+                }
+                printf("Set target host to: %s\n", serv_host);
+                break;
+            case 2:
+                scanf("%s", msg);
+                if (!strcmp(serv_host, "")) strcpy(serv_host, SERV_HOST);
+
+                printf("%s\n", serv_host);
+                if ((res = send_msg(serv_host, SERV_PORT, msg)) == 1) {
+                    // pass
+                } else {
+                    printf("send_msg() failed\n");
+                }
+                break;
+            default:
+                printf("ERROR\n");
+                exit(1);
+        }
     }
+
+
     return 0;
 }
