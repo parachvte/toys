@@ -1,5 +1,6 @@
 #include "ChatClient.h"
 #include "SockUtil.h"
+#include <sys/socket.h>
 
 #include <QDebug>
 

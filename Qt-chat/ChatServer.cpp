@@ -79,7 +79,7 @@ bool ChatServer::processRequest(int sockfd)
         exit(1);
     } else {
         msg[numbytes] = '\0';
-        qDebug() << "Recieve message: " << msg;
+        emit messageReceived(QString(msg));
     }
 
     strcpy(res, "success");

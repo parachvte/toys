@@ -27,10 +27,12 @@ private:
 
 public slots:
     void appendMessage(const QString &from, const QString &message);
+    void messageReceived(QString message);
 
 private slots:
     void returnPressed();
 
+    void on_ipEdit_textChanged(const QString &hostname);
 };
 
 #endif // CHATDIALOG_H

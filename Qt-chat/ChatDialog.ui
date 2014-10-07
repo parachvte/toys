@@ -6,43 +6,30 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>400</height>
+    <width>1200</width>
+    <height>1000</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>ChatDialog</string>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
-  <widget class="QTextEdit" name="textView">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>50</y>
-     <width>461</width>
-     <height>281</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="messageEdit">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>350</y>
-     <width>461</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="ipEdit">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>10</y>
-     <width>191</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
+  <property name="windowTitle">
+   <string>Chatdemo</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLineEdit" name="ipEdit"/>
+   </item>
+   <item>
+    <widget class="QTextEdit" name="textView"/>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="messageEdit"/>
+   </item>
+  </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
