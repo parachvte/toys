@@ -85,7 +85,7 @@ char recv_buffer[BUFFER_SIZE];
 int port_open;
 
 char *device = "en0";
-char *myip = "192.168.0.241";
+char *myip = "172.20.250.21";
 char host[20];
 uint16_t port;
 
@@ -113,8 +113,9 @@ void *icmp_sniffer(void *arg)
     struct sockaddr_in local_addr;
 
     // Create raw socket on ICMP
-    //if ((sockfd = socket(PF_INET, SOCK_RAW, IPPROTO_ICMP)) == -1) // Note that IPPROTO_RAW doesn't work
-    if ((sockfd = socket(PF_INET, SOCK_RAW, IPPROTO_IP)) == -1) // Note that IPPROTO_RAW doesn't work
+    //if ((sockfd = socket(PF_INET, SOCK_RAW, IPPROTO_IP)) == -1) // On CentOS 7, when using `IPPROTO_IP`,
+                                                                  // error `protocol not supported` occurs
+    if ((sockfd = socket(PF_INET, SOCK_RAW, IPPROTO_ICMP)) == -1) // Note that IPPROTO_RAW doesn't work
     {
         perror("socket() error\n");
         sniffer_ready = 1;
@@ -147,7 +148,7 @@ void *icmp_sniffer(void *arg)
     local_addr.sin_addr = *(struct in_addr *) hostinfo->h_addr;
     */
     // TODO: deal with this
-    local_addr.sin_addr.s_addr = inet_addr("192.168.0.241");
+    local_addr.sin_addr.s_addr = inet_addr(myip);
 
     // Once the service is down, we should wait for the port to clear,
     // or just call setsockopt() to reuse the port
