@@ -1,0 +1,1 @@
+gcc main.c initsock.h icmp.h -o ping -lws2_32
