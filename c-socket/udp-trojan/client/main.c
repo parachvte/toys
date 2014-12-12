@@ -3,6 +3,7 @@
 #include <winsock2.h>
 #include "../common/initsock.h"
 
+const int PORT = 48888;
 #define BUFFER_SIZE 2028
 char buff[BUFFER_SIZE];
 
@@ -16,7 +17,7 @@ int send_command(char *remote_ip, char *cmd) {
 
     SOCKADDR_IN server_addr;
     server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(48888);
+    server_addr.sin_port = htons(PORT);
     server_addr.sin_addr.s_addr = inet_addr(remote_ip);
 
     // there is vulnerability, but client is running on hacker's PC, take it easy

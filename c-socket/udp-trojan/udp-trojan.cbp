@@ -12,9 +12,6 @@
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Compiler>
-					<Add option="-O2" />
-				</Compiler>
 				<Linker>
 					<Add option="-s" />
 				</Linker>
@@ -32,6 +29,9 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="Makefile" />
+		<Unit filename="client/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="common/initsock.h" />
 		<Unit filename="server/main.c">
 			<Option compilerVar="CC" />

